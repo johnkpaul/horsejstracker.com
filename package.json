@@ -9,6 +9,8 @@
   "scripts": {
     "start": "ember server",
     "build": "ember build",
+    "decrypt_conf": "openssl cast5-cbc -d -in config/secrets.json.cast5 -out config/secrets.json",
+    "encrypt_conf": "openssl cast5-cbc -e -in config/secrets.json -out config/secrets.json.cast5",
     "test": "ember test"
   },
   "repository": "https://github.com/stefanpenner/ember-cli",
@@ -26,6 +28,13 @@
     "ember-cli-ic-ajax": "0.1.1",
     "express": "^4.1.1",
     "glob": "^3.2.9",
-    "originate": "0.1.5"
+    "originate": "0.1.5",
+    "ember-cli-esnext": "0.0.2"
+  },
+  "dependencies": {
+    "node-twitter": "~0.5.2",
+    "twitter": "~0.2.9",
+    "q": "~1.0.1",
+    "lodash": "~2.4.1"
   }
 }

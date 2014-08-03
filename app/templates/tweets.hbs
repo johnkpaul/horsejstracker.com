@@ -1,0 +1,16 @@
+<table>
+  {{#each this}}
+    <tr>
+      <td>
+        {{{originalOembed.html}}}
+      </td>
+      <td>
+        {{#if inspirationOembed.html}}
+          {{{inspirationOembed.html}}}
+        {{else}}
+          I don't know what inspired this tweet. Do you? Fork and PR instructions here.
+        {{/if}}
+      </td>
+    </tr>
+  {{/each}}
+</table>
