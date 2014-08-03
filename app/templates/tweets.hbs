@@ -1,4 +1,5 @@
 <table>
+  <tbody>
   {{#each this}}
     <tr>
       <td>
@@ -8,9 +9,13 @@
         {{#if inspirationOembed.html}}
           {{{inspirationOembed.html}}}
         {{else}}
-          I don't know what inspired this tweet. Do you? Fork and PR instructions here.
+        Know what inspired this tweet? 
+        Copy this line:
+        <input value="&quot;{{unbound originalOembed.url}}&quot;: &quot;ENTER_TWEET_URL_HERE&quot;"></input>
+        And add a new <a href="https://github.com/johnkpaul/horsejstracker.com/edit/master/server/lib/mapping.js">mapping</a><br>
         {{/if}}
       </td>
     </tr>
   {{/each}}
+  </tbody>
 </table>
