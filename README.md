@@ -8,7 +8,7 @@ This is the repo for horsejstracker.com. If you'd like to add a new horse_js ins
 * `npm install`
 * `bower install`
 * `npm install -g ember-cli`
-* `fill out /config/secrets_sample.json`
+* `fill out /config/secrets_sample.json and copy to /config/secrets.json`
 
 ## Running
 
