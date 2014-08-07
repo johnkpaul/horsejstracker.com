@@ -1,4 +1,8 @@
 var mapping = {
+  'https://twitter.com/horse_js/status/496733029826854913': 'https://twitter.com/tbranyen/status/496729931221852160',
+  'https://twitter.com/horse_js/status/496766518404059136': 'https://twitter.com/pgte/status/496750687037169664',
+  'https://twitter.com/horse_js/status/496802037460643841': 'https://twitter.com/antiserf/status/496764509563142144',
+  'https://twitter.com/horse_js/status/497091593514414080': 'https://twitter.com/maxogden/status/497087379832721408',
   'https://twitter.com/horse_js/status/495576140334243840': 'https://twitter.com/fivetanley/status/495404763081478144',
   'https://twitter.com/horse_js/status/495646693359374336': 'https://twitter.com/searls/status/495405355514744832',
   'https://twitter.com/horse_js/status/495316559909224448': 'https://twitter.com/wycats/status/495315214418468866',
