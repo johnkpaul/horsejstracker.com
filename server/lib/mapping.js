@@ -1,4 +1,7 @@
 var mapping = {
+  'https://twitter.com/horse_js/status/497487977593835520': 'https://twitter.com/domenic/status/497440076633100288',
+  'https://twitter.com/horse_js/status/497614425252450304': 'https://twitter.com/nodebotanist/status/497116012232187905',
+  'https://twitter.com/horse_js/status/497875488464175104': 'https://twitter.com/briankardell/status/497843660680351744',
   'https://twitter.com/horse_js/status/496733029826854913': 'https://twitter.com/tbranyen/status/496729931221852160',
   'https://twitter.com/horse_js/status/496766518404059136': 'https://twitter.com/pgte/status/496750687037169664',
   'https://twitter.com/horse_js/status/496802037460643841': 'https://twitter.com/antiserf/status/496764509563142144',
