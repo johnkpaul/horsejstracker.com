@@ -10,6 +10,8 @@ module.exports = function(app) {
               function(data) {
                   appendOembed(data).then(function(data){
                     res.send({tweets: data});
+                  }).done(null, function(err){
+                    console.log("Appending failed", err);
                   });
               });
   });

@@ -8,6 +8,7 @@ var getOembed = function(tweet_id){
   var def = q.defer(); 
   if(tweet_id){
     twit.get('/statuses/oembed.json', {id: tweet_id}, function(data) {
+      data.html = stripTwitterScript(data.html);
       def.resolve(data);
     });
   }
@@ -39,3 +40,15 @@ module.exports = function(tweets){
   return q.all(oEmbedRequests);
 }
 
+
+
+
+function stripTwitterScript(html){
+  if(html ){
+    var withoutScript = html.substr(0, html.indexOf("script async") - 1);
+    return withoutScript;
+  }
+  else{
+    return html;
+  }
+}
