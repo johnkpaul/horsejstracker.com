@@ -12,7 +12,7 @@ knex.select('*').from('tweets').orderBy('horse_js_tweet_id_str', 'desc').limit(1
   }
 }).then(function(since_id){
 
-  return twitGet('/statuses/user_timeline.json', {screen_name: 'horse_js', count: 10, include_rts: 0, since_id: since_id})
+  return twitGet('/statuses/user_timeline.json', {screen_name: 'horse_js', count: 50, include_rts: 0, since_id: since_id})
 
 }).then(function(tweets) { 
   return Q.all(tweets.map(function(tweet){
@@ -21,7 +21,9 @@ knex.select('*').from('tweets').orderBy('horse_js_tweet_id_str', 'desc').limit(1
       horse_js_tweet_data: tweet
     });
   }));
-}).done(null, function(err){
+}).done(function(){
+  process.exit(0);
+}, function(err){
   console.log("twitter get failed", err);
 });
 

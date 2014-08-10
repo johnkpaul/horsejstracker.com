@@ -2,9 +2,7 @@
 
 exports.up = function(knex, Promise) {
   knex.schema.createTable('tweets', function(table){
-    table.increments();
-
-    table.string('horse_js_tweet_id_str').index();
+    table.string('horse_js_tweet_id_str').primary().index().unique();
     table.json('horse_js_tweet_data');
     table.json('horse_js_tweet_oembed');
 
