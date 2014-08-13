@@ -1,4 +1,5 @@
 var q = require('q');
+var twit = require('./twit');
 
 var getOembed = function(tweet_id){
   var def = q.defer(); 
@@ -15,3 +16,13 @@ var getOembed = function(tweet_id){
 }
 
 module.exports = getOembed;
+
+function stripTwitterScript(html){
+  if(html ){
+    var withoutScript = html.substr(0, html.indexOf("script async") - 1);
+    return withoutScript;
+  }
+  else{
+    return html;
+  }
+}

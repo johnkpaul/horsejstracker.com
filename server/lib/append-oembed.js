@@ -30,12 +30,3 @@ module.exports = function(tweets){
 
 
 
-function stripTwitterScript(html){
-  if(html ){
-    var withoutScript = html.substr(0, html.indexOf("script async") - 1);
-    return withoutScript;
-  }
-  else{
-    return html;
-  }
-}
