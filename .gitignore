@@ -16,3 +16,4 @@
 npm-debug.log
 testem.log
 config/secrets.json
+server/db/knexfile.js
