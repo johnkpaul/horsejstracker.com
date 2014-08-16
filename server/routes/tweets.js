@@ -17,6 +17,24 @@ module.exports = function(app) {
       });;
               
   });
+
+  tweetsRouter.post('/newMapping', function(req, res) {
+     var data = req.body;
+     var inspiration_url = data.inspiration_url;
+     var inspiration_tweet_id_str = _.last(inspiration_url.split('/'));
+     var horse_js_tweet_id_str = data.horse_js_tweet_id_str;
+     getTweet(horse_js_tweet_id_str).then(function(tweet){
+       if(tweet.inspiration_tweet_oembed && tweet.inspiration_tweet_oembed.html){
+         res.send({});
+         return;
+       }
+       tweet.inspiration_tweet_id_str = inspiration_tweet_id_str;
+       getInspirationTweetOembed(tweet).then(function(oembed){
+         res.send(oembed);
+       });
+     });
+  });
+
   app.use('/api/tweets', tweetsRouter);
 };
 
@@ -24,6 +42,12 @@ function getTweets(){
     return knex('tweets').select('*')
       .orderBy('horse_js_tweet_id_str', 'desc')
       .limit(50);
+}
+
+function getTweet(horse_js_tweet_id_str){
+    return knex('tweets').select('*')
+      .where('horse_js_tweet_id_str', horse_js_tweet_id_str)
+      .limit(1).then(function(tweets){ return tweets[0]; });
 }
 
 function fillOembeds(tweets){

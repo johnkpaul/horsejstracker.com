@@ -1,21 +1,23 @@
-<table>
-  <tbody>
-  {{#each this}}
-    <tr>
-      <td>
-        {{{horse_js_tweet_oembed.html}}}
-      </td>
-      <td>
-        {{#if inspiration_tweet_oembed.html}}
-          {{{inspiration_tweet_oembed.html}}}
-        {{else}}
-        Know what inspired this tweet? 
-        Copy this line:
-        <input value="&quot;{{unbound horse_js_tweet_oembed.url}}&quot;: &quot;ENTER_TWEET_URL_HERE&quot;"></input>
-        And add a new <a href="https://github.com/johnkpaul/horsejstracker.com/edit/master/server/lib/mapping.js">mapping</a><br>
-        {{/if}}
-      </td>
-    </tr>
+  {{#each this itemController="tweet"}}
+          <div class="row">
+        
+              <div class="col-lg-6 col-sm-6"><div class="well">{{{horse_js_tweet_oembed.html}}}</div></div>
+              <div class="col-lg-6 col-sm-6"><div class="well">
+
+                {{#if inspiration_tweet_oembed.html}}
+                  {{{inspiration_tweet_oembed.html}}}
+                {{else}}
+                  <div class="row">
+                    <div class="col-lg-4 col-sm-4">
+                    {{input value=inspirationTweetUrl placeholder="Inspiration tweet URL"}}
+                    </div>
+                    <button {{action "saveMapping" this}} type="button" class="btn btn-primary btn-xs col-lg-4 col-sm-4">
+                       <i class="glyphicon glyphicon-cloud-upload"></i> 
+                        Save new mapping
+                    </button>
+                  </div>
+
+                {{/if}}
+              </div></div>
+          </div>
   {{/each}}
-  </tbody>
-</table>
