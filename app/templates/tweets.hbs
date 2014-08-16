@@ -3,15 +3,15 @@
   {{#each this}}
     <tr>
       <td>
-        {{{originalOembed.html}}}
+        {{{horse_js_tweet_oembed.html}}}
       </td>
       <td>
-        {{#if inspirationOembed.html}}
-          {{{inspirationOembed.html}}}
+        {{#if inspiration_tweet_oembed.html}}
+          {{{inspiration_tweet_oembed.html}}}
         {{else}}
         Know what inspired this tweet? 
         Copy this line:
-        <input value="&quot;{{unbound originalOembed.url}}&quot;: &quot;ENTER_TWEET_URL_HERE&quot;"></input>
+        <input value="&quot;{{unbound horse_js_tweet_oembed.url}}&quot;: &quot;ENTER_TWEET_URL_HERE&quot;"></input>
         And add a new <a href="https://github.com/johnkpaul/horsejstracker.com/edit/master/server/lib/mapping.js">mapping</a><br>
         {{/if}}
       </td>

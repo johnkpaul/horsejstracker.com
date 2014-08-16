@@ -10,43 +10,63 @@ module.exports = function(app) {
   var express = require('express');
   var tweetsRouter = express.Router();
   tweetsRouter.get('/', function(req, res) {
-    knex('tweets').select('*')
-      .orderBy('horse_js_tweet_id_str', 'desc')
-      .limit(10)
+    getTweets()
+      .then(fillOembeds)
       .then(function(tweets){
-        var response = tweets.map(function(row){
-           if(!row.horse_js_tweet_oembed || (row.horse_js_tweet_oembed.statusCode == "429")){
-             var horseOembed = getOembed(row.horse_js_tweet_id_str);
-           }
-           if(row.inspiration_tweet_id_str && (!row.inspiration_tweet_oembed || row.inspiration_tweet_oembed.statusCode == "429")){
-             var inspirationOembed = getOembed(row.inspiration_tweet_id_str);
-           }
-           return Q.all([horseOembed, inspirationOembed])
-             .then(function(oembeds){
-               saveOembeds(oembeds, row.horse_js_tweet_id_str);
-               var tweet = row.horse_js_tweet_data;
-               tweet.inspirationOembed = oembeds[1] || row.inspiration_tweet_oembed || {};
-               tweet.originalOembed = oembeds[0] || row.horse_js_tweet_oembed || {};
-               return tweet;
-             })
-        })
-
-        Q.all(response).then(function(tweets){
-          res.send({tweets: tweets});
-        });
-
-    });
+        res.send({tweets: tweets});
+      });;
               
   });
   app.use('/api/tweets', tweetsRouter);
 };
 
-function saveOembeds(oembeds, horse_js_tweet_id_str){
-  var saveOembeds = require('../db/save-oembeds');
-  if(oembeds[0]) {
-    saveOembed(horse_js_tweet_id_str, 'horse_js', oembeds[1]);
+function getTweets(){
+    return knex('tweets').select('*')
+      .orderBy('horse_js_tweet_id_str', 'desc')
+      .limit(50);
+}
+
+function fillOembeds(tweets){
+  return Q.all(tweets.map(function(tweet){
+    var horse_js_tweet_oembed = getHorseJSTweetOembed(tweet);
+    var inspiration_tweet_oembed = getInspirationTweetOembed(tweet);
+    return Q.all([horse_js_tweet_oembed, inspiration_tweet_oembed])
+            .then(function(oembeds){
+              tweet.horse_js_tweet_oembed = oembeds[0];
+              tweet.inspiration_tweet_oembed = oembeds[1];
+              return tweet;
+            });
+  }));
+}
+
+function getHorseJSTweetOembed(tweet){
+  if (tweet.horse_js_tweet_oembed){
+    return Q(tweet.horse_js_tweet_oembed);
   }
-  if(oembeds[1]) {
-    saveOembed(horse_js_tweet_id_str, 'inspiration', oembeds[1]);
+  else{
+    var oembed = getOembed(tweet.horse_js_tweet_id_str);
+    return oembed.then(function(data){
+      if(data.statusCode == "429") { return; }
+      saveOembed(tweet.horse_js_tweet_id_str, 'horse_js', data);
+      return data;
+    });
+  }
+}
+
+function getInspirationTweetOembed(tweet){
+  if (tweet.inspiration_tweet_oembed.html){
+    return Q(tweet.inspiration_tweet_oembed);
+  }
+  else{
+    var oembed = getOembed(tweet.inspiration_tweet_id_str);
+    return oembed.then(function(data){
+      if(data && data.statusCode != "429"){
+        saveOembed(tweet.horse_js_tweet_id_str, 'inspiration', data);
+        return data;
+      }
+      else{
+        return {};
+      }
+    });
   }
 }
