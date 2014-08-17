@@ -78,7 +78,7 @@ function getHorseJSTweetOembed(tweet){
 }
 
 function getInspirationTweetOembed(tweet){
-  if (tweet.inspiration_tweet_oembed.html){
+  if (tweet.inspiration_tweet_oembed && tweet.inspiration_tweet_oembed.html){
     return Q(tweet.inspiration_tweet_oembed);
   }
   else{
