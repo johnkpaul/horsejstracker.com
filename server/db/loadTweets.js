@@ -8,7 +8,7 @@ knex.select('*').from('tweets').orderBy('horse_js_tweet_id_str', 'desc').limit(1
     return '491729185514061824';
   } 
   else{
-    return rows[0].horse_js_tweet_data.id;
+    return rows[0].horse_js_tweet_data.id_str;
   }
 }).then(function(since_id){
 
